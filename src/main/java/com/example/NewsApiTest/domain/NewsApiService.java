@@ -6,4 +6,5 @@ import com.example.NewsApiTest.web.form.NewsApiResponseDto;
 public interface NewsApiService {
     public NewsApiResponseDto everythingTest(NewsApiRequestForm form);
 
+    public NewsApiResponseDto topHeadlineTest(NewsApiRequestForm form);
 }
