@@ -12,4 +12,14 @@ public enum SortBy {
     public String getLabel() {
         return label;
     }
+
+    public static SortBy fromString(String name){
+        for (SortBy sortBy : SortBy.values()) {
+            if (sortBy.name().equalsIgnoreCase(name)) {
+                return sortBy;
+            }
+        }
+        throw new IllegalArgumentException("Unknown name: " + name);
+
+    }
 }

@@ -30,12 +30,14 @@ public class NewsApiServiceImpl implements NewsApiService {
     private final ObjectMapper mapper;
 
     @Override
-    public NewsApiResponseDto everythingTest(NewsApiRequestForm form) {
+    public NewsApiResponseDto getEverything(NewsApiRequestForm form) {
         CompletableFuture<NewsApiResponseDto> future = new CompletableFuture<>();
 
         newsApiClient.getEverything(
                 new EverythingRequest.Builder()
                         .q(form.getQ())
+                        .sortBy(form.getSortBy() != null ? form.getSortBy().getLabel(): null)
+                        .language(form.getLanguage() != null ? form.getLanguage().getLabel() : null)
                         .pageSize(form.getPageSize() > 0 ?   form.getPageSize() : 20)
                         .page(form.getPage() > 1 ? form.getPage() : 1)
                         .build(),
@@ -82,7 +84,7 @@ public class NewsApiServiceImpl implements NewsApiService {
     }
 
     @Override
-    public NewsApiResponseDto topHeadlineTest(NewsApiRequestForm form) {
+    public NewsApiResponseDto getTopHeadline(NewsApiRequestForm form) {
         CompletableFuture<NewsApiResponseDto> future = new CompletableFuture<>();
 
         newsApiClient.getTopHeadlines(
@@ -90,7 +92,6 @@ public class NewsApiServiceImpl implements NewsApiService {
                         .country(StringUtils.hasText(form.getCountry()) ? form.getCountry() : null)
                         .category(StringUtils.hasText(form.getCategory()) ? form.getCategory() : null)
                         .q(StringUtils.hasText(form.getQ()) ? form.getQ() : null)
-                        .language(StringUtils.hasText(form.getLanguage()) ? form.getLanguage() : null)
                         .pageSize(form.getPageSize() > 0 ?   form.getPageSize() : 20)
                         .page(form.getPage() > 1 ? form.getPage() : 1)
                         .build(),

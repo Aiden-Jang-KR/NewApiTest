@@ -15,16 +15,27 @@ public class NewsApiRequestForm {
     private String category;
 
     private String sources;
-    private String searchIn;
-    private String domains;
-    private String excludeDomains;
+    private String[] searchIn;
+    private String[] domains;
+    private String[] excludeDomains;
 
     private LocalDateTime from;
     private LocalDateTime to;
 
-    private String language;
+    private String searchLanguage;
+    private String searchSortBy;
+
+    private Language language;
     private SortBy sortBy;
 
     private int pageSize;
     private int page;
+
+    public void setSortBy(SortBy sortBy) {
+        this.sortBy = sortBy;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
 }
