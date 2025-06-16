@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -14,10 +15,10 @@ public class NewsApiRequestForm {
     private String country;
     private String category;
 
-    private String sources;
-    private String[] searchIn;
-    private String[] domains;
-    private String[] excludeDomains;
+    private List<String> sources;
+    private List<String> searchIn;
+    private List<String> domains;
+    private List<String> excludeDomains;
 
     private LocalDateTime from;
     private LocalDateTime to;

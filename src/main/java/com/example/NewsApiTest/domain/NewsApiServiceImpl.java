@@ -12,6 +12,7 @@ import com.kwabenaberko.newsapilib.models.response.ArticleResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.net.SocketTimeoutException;
@@ -33,11 +34,21 @@ public class NewsApiServiceImpl implements NewsApiService {
     public NewsApiResponseDto getEverything(NewsApiRequestForm form) {
         CompletableFuture<NewsApiResponseDto> future = new CompletableFuture<>();
 
+        String sources = (!CollectionUtils.isEmpty(form.getSources())) ? String.join(",", form.getSources())  : null;
+        String domains = (!CollectionUtils.isEmpty(form.getDomains())) ? String.join(",", form.getDomains())  : null;
+
+        String searchIn = (!CollectionUtils.isEmpty(form.getSearchIn())) ? String.join(",", form.getSearchIn())  : null;
+        String excludeDomains = (!CollectionUtils.isEmpty(form.getExcludeDomains())) ? String.join(",", form.getExcludeDomains())  : null;
+
         newsApiClient.getEverything(
                 new EverythingRequest.Builder()
                         .q(form.getQ())
+                        .sources(sources)
+                        .domains(domains)
                         .sortBy(form.getSortBy() != null ? form.getSortBy().getLabel(): null)
                         .language(form.getLanguage() != null ? form.getLanguage().getLabel() : null)
+                        .from(form.getFrom() != null ? form.getFrom().toString() : null)
+                        .to(form.getTo() != null ? form.getTo().toString() : null)
                         .pageSize(form.getPageSize() > 0 ?   form.getPageSize() : 20)
                         .page(form.getPage() > 1 ? form.getPage() : 1)
                         .build(),

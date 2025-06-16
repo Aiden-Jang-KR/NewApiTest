@@ -46,6 +46,14 @@ public class NewsApiTestController {
             }
         }
 
+        if(form.getFrom() != null && form.getTo() != null && form.getTo().isBefore(form.getFrom())){
+            return new NewsApiResponseDto("error", "parametersMissing", "검색일자를 확인해 주세요.");
+        }
+
+        if(form.getPageSize() > 100){
+            return new NewsApiResponseDto("error", "parametersMissing", "1회 최대 검색량은 100건입니다.");
+        }
+
         return ResponseEntity.ok(newsApiService.getEverything(form));
     }
 
